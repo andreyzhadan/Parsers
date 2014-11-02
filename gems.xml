@@ -1,0 +1,35 @@
+<gems>
+    <gem>
+        <name>diamond</name>
+        <preciousness>true</preciousness>
+        <!--<origin>Africa</origin>-->
+        <!--<visual>-->
+            <!--<color>Blue</color>-->
+            <!--<transparency>50</transparency>-->
+            <!--<way>5</way>-->
+        <!--</visual>-->
+        <!--<value>2</value>-->
+    </gem>
+    <gem>
+        <name>topaz</name>
+        <preciousness>true</preciousness>
+        <!--<origin>Ukraine</origin>-->
+        <!--<visual>-->
+            <!--<color>Red</color>-->
+            <!--<transparency>20</transparency>-->
+            <!--<way>3</way>-->
+        <!--</visual>-->
+        <!--<value>5</value>-->
+    </gem>
+    <gem>
+        <name>corundum</name>
+        <preciousness>false</preciousness>
+        <!--<origin>Asia</origin>-->
+        <!--<visual>-->
+            <!--<color>Green</color>-->
+            <!--<transparency>70</transparency>-->
+            <!--<way>1</way>-->
+        <!--</visual>-->
+        <!--<value>4</value>-->
+    </gem>
+</gems>
