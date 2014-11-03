@@ -1,22 +1,17 @@
 package pojo;
 
-/**
- * Created by Yehor_Yeshchenko on 11/3/2014.
- */
 public class Gem {
-    String name;
-    boolean preciousness;
-    String origin;
-    Visual visual;
-    int value;
-    public static final String nameStr = "name";
-    public static final String preciousnessStr = "preciousness";
-    public static final String originStr = "origin";
-    public static final String visualStr = "visual";
-    public static final String valueStr = "value";
-
-    public static final String rootStr = "gem";
-
+    public static final String ROOT = "gem";
+    public static final String NAME = "name";
+    public static final String VALUE = "value";
+    public static final String VISUAL = "visual";
+    public static final String ORIGIN = "origin";
+    public static final String PRECIOUSNESS = "preciousness";
+    private int value;
+    private String name;
+    private Visual visual;
+    private String origin;
+    private boolean preciousness;
 
     public Gem(String name, boolean preciousness, String origin, Visual visual, int value) {
         this.name = name;
@@ -41,45 +36,20 @@ public class Gem {
                 '}';
     }
 
-    public Gem(String name, boolean preciousness) {
-        this.name = name;
-        this.preciousness = preciousness;
-    }
-
-    public String getName() {
-        return name;
-    }
-
     public void setName(String name) {
         this.name = name;
-    }
-
-    public boolean isPreciousness() {
-        return preciousness;
     }
 
     public void setPreciousness(boolean preciousness) {
         this.preciousness = preciousness;
     }
 
-    public String getOrigin() {
-        return origin;
-    }
-
     public void setOrigin(String origin) {
         this.origin = origin;
     }
 
-    public Visual getVisual() {
-        return visual;
-    }
-
     public void setVisual(Visual visual) {
         this.visual = visual;
-    }
-
-    public int getValue() {
-        return value;
     }
 
     public void setValue(int value) {
