@@ -25,7 +25,7 @@ public class Main {
     public static void main(String[] args) {
         List<Gem> gemList;
 //          gemList = parseWithDom();
-          gemList = parseWithSax();
+        gemList = parseWithSax();
 //        gemList = parseWithStax();
         for (Gem gem : gemList) {
             System.out.println(gem);
@@ -99,12 +99,17 @@ public class Main {
                 Visual visual = new Visual(color, transparency, way);
                 int value;
 
-                    //visual:
-    //                String color;
-    //                Integer transparency;
-    //                Integer way;
                 @Override
                 public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+                    if (qName.equals(Visual.colorStr)) {
+                        bColor = true;
+                    }
+                    if (qName.equals(Visual.transparencyStr)) {
+                        bTransparency = true;
+                    }
+                    if (qName.equals(Visual.wayStr)) {
+                        bWay = true;
+                    }
                     if (qName.equals(Gem.nameStr)) {
                         bName = true;
                     }
@@ -115,16 +120,9 @@ public class Main {
                         bOrigin = true;
                     }
                     if (qName.equals(Gem.visualStr)) {
-                        /*-----*/
-                        //вложенные в Visual
-                        if (qName.equals(Visual.colorStr) && qName.equals(Visual.transparencyStr) && qName.equals(Visual.wayStr)) {
-                            bColor = true;
-                            bTransparency = true;
-                            bWay = true;
-                        }
-                        /*---*/
                         bVisual = true;
                     }
+
                     if (qName.equals(Gem.valueStr)) {
                         bValue = true;
                     }
@@ -137,7 +135,6 @@ public class Main {
                         gemList.add(gem);
                     }
                 }
-//                Gem(String name, boolean preciousness, String origin, Visual visual, int value)
 
                 @Override
                 public void characters(char ch[], int start, int length) throws SAXException {
@@ -153,8 +150,20 @@ public class Main {
                         origin = new String(ch, start, length);
                         bOrigin = false;
                     }
+                    if (bColor) {
+                        color = new String(ch, start, length);
+                        bColor = false;
+                    }
+                    if (bTransparency) {
+                        transparency = Integer.parseInt(new String(ch, start, length));
+                        bTransparency = false;
+                    }
+                    if (bWay) {
+                        way = Integer.parseInt(new String(ch, start, length));
+                        bWay = false;
+                    }
                     if (bVisual) {
-                        visual = new Visual();
+                        visual = new Visual(color, transparency, way);
                         bVisual = false;
                     }
                     if (bValue) {
@@ -168,6 +177,7 @@ public class Main {
         }
         return gemList;
     }
+
 
     private static List<Gem> parseWithDom() {
         List<Gem> gemList = new ArrayList<>();
