@@ -1,7 +1,7 @@
 package pojo;
 
 /**
- * Created by azhadan on 11/2/14.
+ * Created by Yehor_Yeshchenko on 11/3/2014.
  */
 public class Gem {
     String name;
@@ -11,7 +11,12 @@ public class Gem {
     int value;
     public static final String nameStr = "name";
     public static final String preciousnessStr = "preciousness";
+    public static final String originStr = "origin";
+    public static final String visualStr = "visual";
+    public static final String valueStr = "value";
+
     public static final String rootStr = "gem";
+
 
     public Gem(String name, boolean preciousness, String origin, Visual visual, int value) {
         this.name = name;

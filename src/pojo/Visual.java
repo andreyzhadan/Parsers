@@ -1,12 +1,16 @@
 package pojo;
 
 /**
- * Created by azhadan on 11/2/14.
+ * Created by Yehor_Yeshchenko on 11/3/2014.
  */
 public class Visual {
     String color;
     Integer transparency;
     Integer way;
+
+    public static final String colorStr = "visual";
+    public static final String transparencyStr = "transparency";
+    public static final String wayStr = "way";
 
     public Visual(String color, Integer transparency, Integer way) {
         this.color = color;

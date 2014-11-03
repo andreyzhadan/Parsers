@@ -13,10 +13,7 @@ import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,9 +24,9 @@ public class Main {
     // http://www.javacodegeeks.com/2013/05/parsing-xml-using-dom-sax-and-stax-parser-in-java.html
     public static void main(String[] args) {
         List<Gem> gemList;
-        //  gemList = parseWithDom();
-        //  gemList = parseWithSax();
-        gemList = parseWithStax();
+//          gemList = parseWithDom();
+          gemList = parseWithSax();
+//        gemList = parseWithStax();
         for (Gem gem : gemList) {
             System.out.println(gem);
         }
@@ -85,10 +82,27 @@ public class Main {
             saxParser.parse(GEMS_XML, new DefaultHandler() {
                 boolean bName = false;
                 boolean bPreciousness = false;
+                boolean bOrigin = false;
+                boolean bVisual = false;
+                boolean bValue = false;
+
+                boolean bColor = false;
+                boolean bTransparency = false;
+                boolean bWay = false;
+                String color;
+                Integer transparency;
+                Integer way;
 
                 String name;
                 boolean preciousness;
+                String origin;
+                Visual visual = new Visual(color, transparency, way);
+                int value;
 
+                    //visual:
+    //                String color;
+    //                Integer transparency;
+    //                Integer way;
                 @Override
                 public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
                     if (qName.equals(Gem.nameStr)) {
@@ -97,15 +111,33 @@ public class Main {
                     if (qName.equals(Gem.preciousnessStr)) {
                         bPreciousness = true;
                     }
+                    if (qName.equals(Gem.originStr)) {
+                        bOrigin = true;
+                    }
+                    if (qName.equals(Gem.visualStr)) {
+                        /*-----*/
+                        //вложенные в Visual
+                        if (qName.equals(Visual.colorStr) && qName.equals(Visual.transparencyStr) && qName.equals(Visual.wayStr)) {
+                            bColor = true;
+                            bTransparency = true;
+                            bWay = true;
+                        }
+                        /*---*/
+                        bVisual = true;
+                    }
+                    if (qName.equals(Gem.valueStr)) {
+                        bValue = true;
+                    }
                 }
 
                 @Override
                 public void endElement(String uri, String localName, String qName) throws SAXException {
                     if (Gem.rootStr.equals(qName)) {
-                        Gem gem = new Gem(name, preciousness);
+                        Gem gem = new Gem(name, preciousness, origin, visual, value);
                         gemList.add(gem);
                     }
                 }
+//                Gem(String name, boolean preciousness, String origin, Visual visual, int value)
 
                 @Override
                 public void characters(char ch[], int start, int length) throws SAXException {
@@ -113,10 +145,21 @@ public class Main {
                         name = new String(ch, start, length);
                         bName = false;
                     }
-
                     if (bPreciousness) {
                         preciousness = Boolean.parseBoolean(new String(ch, start, length));
                         bPreciousness = false;
+                    }
+                    if (bOrigin) {
+                        origin = new String(ch, start, length);
+                        bOrigin = false;
+                    }
+                    if (bVisual) {
+                        visual = new Visual();
+                        bVisual = false;
+                    }
+                    if (bValue) {
+                        value = Integer.parseInt(new String(ch, start, length));
+                        bValue = false;
                     }
                 }
             });
